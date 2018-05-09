@@ -197,9 +197,11 @@ def getChar(board, row, column):
         return '';
     char = board[column][row]
     return char
+
 def neighbour(board, row, column):
     '''
     查看当前棋子是否被包围了
+    检查当前棋子的邻居
     '''
     check = getChar(board, row, column)
     if(check not in ['O','@']):
@@ -216,3 +218,11 @@ def neighbour(board, row, column):
     	#f = [c[1][1], c[1][0]]
         firstNeighbour = [dir[0][1]+row,dir[0][0]+column] # first Half(0,-1)(-1,0) up left
         secondNeighbour =[dir[1][1]+row,dir[1][0]+column] # second Half(0,1)(1,0) down right
+        if(legalPosition(firstNeighbour[1],firstNeighbour[0]) and
+            legalPosition(secondNeighbour[1],secondNeighbour[0])):
+            #If the neighouburs are legal positions
+            if(board[secondNeighbour[1]][secondNeighbour[0]] in neighbour and
+                board[firstNeighbour[1]][firstNeighbour[0]] in neighbour):
+                #If there is enemy(X or enemy) in the enighbours
+                return True
+    return False
