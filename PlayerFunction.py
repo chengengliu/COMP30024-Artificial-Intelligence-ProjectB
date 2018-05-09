@@ -27,6 +27,15 @@ def printBoard(board):
         print(temp)
 #printBoard(boardInit())
 
+def getChar(board, row, column):
+    '''
+    Get the char at given position
+    '''
+    if position[0] > 7 or position[1] > 7 or position[0] < 0 or position[1] < 0:
+        return '';
+    char = board[column][row]
+    return char
+
 def legalPosition(column, row, shrink=None):
     '''
     Check if the position is still legal.
@@ -190,14 +199,6 @@ def tryMoves(board, piece, shrink):
                         number+=1;
     return number
 
-def getChar(board, row, column):
-    '''
-    Get the char at given position
-    '''
-    if position[0] > 7 or position[1] > 7 or position[0] < 0 or position[1] < 0:
-        return '';
-    char = board[column][row]
-    return char
 
 def neighbour(board, row, column):
     '''
@@ -227,3 +228,20 @@ def neighbour(board, row, column):
                 #If there is enemy(X or enemy) in the enighbours
                 return True
     return False
+def boardShrink(board, shrink):
+    '''
+    Shrink the board
+    '''
+    for row in range(0,8):
+        for column in range(0,8):
+            if row < shrink or column < shrink or row > 7-shrink or column > 7-shrink:
+                board[column][row] = " "
+
+    '''
+    Remember to update the corner as well
+    '''
+    corners = [[shrink,shrink], [7-shrink, shrink], [7-shrink,7-shrink],
+        [shrink,7-shrink]]
+    for corner in corners:
+        board[corner[1]][corner[0]] = 'X'
+    return board
