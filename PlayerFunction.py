@@ -201,7 +201,7 @@ def tryMoves(board, piece, shrink):
     return number
 
 
-def neighbour(board, row, column):
+def hasNeighbour(board, row, column):
     '''
     查看当前棋子是否被包围了
     检查当前棋子的邻居
@@ -250,4 +250,14 @@ def boardShrink(board, shrink):
         [shrink,7-shrink]]
     for corner in corners:
         board[corner[1]][corner[0]] = 'X'
+    return board
+
+
+def updateBoard(board, player, playerP, opponentP):
+    '''
+
+#目前还没想好，因为我需要一个action，但是对于action的定义还不是很清晰
+    Update the board according to the player board
+    Return an updated board.
+    '''
     return board
