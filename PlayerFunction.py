@@ -219,7 +219,7 @@ def neighbour(board, row, column):
 
         #e = [c[0][1], c[0][0]]
     	#f = [c[1][1], c[1][0]]
-        #Need test later. Hardcoded test pass 
+        #Need test later. Hardcoded test pass
         firstNeighbour = [dir[0][1]+row,dir[0][0]+column] # first Half(0,-1)(-1,0) up left
         secondNeighbour =[dir[1][1]+row,dir[1][0]+column] # second Half(0,1)(1,0) down right
         if(legalPosition(firstNeighbour[1],firstNeighbour[0]) and
@@ -230,9 +230,13 @@ def neighbour(board, row, column):
                 #If there is enemy(X or enemy) in the enighbours
                 return True
     return False
+
 def boardShrink(board, shrink):
     '''
     Shrink the board
+    shrink: The number of shrink times
+    return a shrinked board
+
     '''
     for row in range(0,8):
         for column in range(0,8):
