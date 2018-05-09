@@ -27,7 +27,7 @@ def printBoard(board):
         print(temp)
 #printBoard(boardInit())
 
-def legalPosition(row, column, shrink):
+def legalPosition(column, row, shrink=None):
     '''
     Check if the position is still legal.
     May be used later in the shrinking phase.
@@ -97,7 +97,7 @@ def move(board, row, column, shrink, dir):
         newLocation = [column-1, row]
     elif(dir == 'right'):
         board[column+1][row] = board[column][row]
-        board[colu]][row] = '-'
+        board[colu][row] = '-'
         newLocation = [column+1,row]
     return newLocation
 
@@ -121,7 +121,7 @@ def jump(baord, row, column, shrink, dir):
         newLocation = [column-2, row]
     elif(dir == 'right'):
         board[column+2][row] = board[column][row]
-        board[colu]][row] = '-'
+        board[colu][row] = '-'
         newLocation = [column+2,row]
     return newLocation
 
@@ -188,3 +188,31 @@ def tryMoves(board, piece, shrink):
                     elif legalJump(board, row, column, shrink, dir):
                         move+=1;
     return number
+
+def getChar(board, row, column):
+    '''
+    Get the char at given position
+    '''
+    if position[0] > 7 or position[1] > 7 or position[0] < 0 or position[1] < 0:
+        return '';
+    char = board[column][row]
+    return char
+def neighbour(board, row, column):
+    '''
+    查看当前棋子是否被包围了
+    '''
+    check = getChar(board, row, column)
+    if(check not in ['O','@']):
+        return None
+    if(check == '@'):
+        neighbour = ['O','X'];
+    else:
+        neighbour = ['@','X'];
+    directions = [[[-1,0], [1,0]], [[0,-1], [0,1]]]
+
+    for dir in directions:
+
+        #e = [c[0][1], c[0][0]]
+    	#f = [c[1][1], c[1][0]]
+        firstNeighbour = [dir[0][1]+row,dir[0][0]+column] # first Half(0,-1)(-1,0) up left
+        secondNeighbour =[dir[1][1]+row,dir[1][0]+column] # second Half(0,1)(1,0) down right
