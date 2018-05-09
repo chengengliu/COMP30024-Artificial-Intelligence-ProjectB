@@ -69,6 +69,7 @@ def numberOnBoard(board):
 def makeMoveJump(board, row, column, shrink, dir):
     '''
     Do move. Check if it is legal before setting the new location
+    Will use legalMove, legalJump, move, jump. Four functions
     '''
     if(legalMove(board, row, column, shrink, dir)):
         return move(board, row, column, shrink, dir);
@@ -184,9 +185,9 @@ def tryMoves(board, piece, shrink):
             if(board[column][row] == piece):
                 for dir in directions:
                     if legalMove(board,row, column, shrink,dir):
-                        move+=1;
+                        number+=1;
                     elif legalJump(board, row, column, shrink, dir):
-                        move+=1;
+                        number+=1;
     return number
 
 def getChar(board, row, column):
