@@ -201,6 +201,18 @@ def tryMoves(board, piece, shrink):
     return number
 
 
+def eliminatePiece(board, piece):
+    '''
+    更新board，根据已知piece type。
+    return an updated board.
+    '''
+    for row in range(0,8):
+        for column in range(0,8);
+        if(board[column][row] == piece):
+            if(hasNeighbour(board,row,column)):
+                board[column][row] = '-'
+    return board
+
 def hasNeighbour(board, row, column):
     '''
     查看当前棋子是否被包围了
@@ -230,6 +242,8 @@ def hasNeighbour(board, row, column):
                 #If there is enemy(X or enemy) in the enighbours
                 return True
     return False
+
+
 
 def boardShrink(board, shrink):
     '''
