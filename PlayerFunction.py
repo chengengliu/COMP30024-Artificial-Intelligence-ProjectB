@@ -93,6 +93,7 @@ def move(board, row, column, shrink, dir):
     return a List of new Location
     '''
     currentLocation = [column, row];
+    #Up Down Left Right
     if(dir == 'up'):
         board[column][row-1] = board[column][row]
         board[column][row] = '-'
@@ -218,6 +219,7 @@ def neighbour(board, row, column):
 
         #e = [c[0][1], c[0][0]]
     	#f = [c[1][1], c[1][0]]
+        #Need test later. Hardcoded test pass 
         firstNeighbour = [dir[0][1]+row,dir[0][0]+column] # first Half(0,-1)(-1,0) up left
         secondNeighbour =[dir[1][1]+row,dir[1][0]+column] # second Half(0,1)(1,0) down right
         if(legalPosition(firstNeighbour[1],firstNeighbour[0]) and
