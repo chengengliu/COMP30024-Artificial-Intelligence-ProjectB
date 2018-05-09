@@ -74,18 +74,41 @@ def legalMove(board, row, column, shrink, dir):
     '''
     if(dir == 'up'):
         if(legalPosition(row-1, column,shrink) and
-            board[row-1][column] == '-'):
+            board[column][row-1] == '-'):
             return True
     if(dir == 'down'):
         if(legalPosition(row+1,column,shrink) and
-            board[row+1][column] == '-'):
+            board[column][row+1] == '-'):
             return True
     if(dir == 'left'):
         if(legalPosition(row,column-1, shrink) and
-            board[row][column-1] == '-'):
+            board[column-1][row] == '-'):
             return True
     if(dir == 'right'):
         if(legalPosition(row, column+1,shrink) and
-            board[row][column+1] == '-');
+            board[column+1][row] == '-');
+            return True
+    return False
+    
+def legalJump(board, row, column, shrink, dir):
+    '''
+    查看下一步跳跃方向是否合法。
+    这个function默认call的时候已经知道无法move或者说首选并非normal move
+    '''
+    if(dir == 'up'):
+        if(legalPosition(row-2, column,shrink) and
+            board[column][row-2] == '-'):
+            return True
+    if(dir == 'down'):
+        if(legalPosition(row+1,column,shrink) and
+            board[column][row+2] == '-'):
+            return True
+    if(dir == 'left'):
+        if(legalPosition(row,column-2, shrink) and
+            board[column-2][row] == '-'):
+            return True
+    if(dir == 'right'):
+        if(legalPosition(row, column+2,shrink) and
+            board[column+2][row] == '-');
             return True
     return False
