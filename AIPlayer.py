@@ -1,4 +1,4 @@
-import time
+
 import PlayerFunction as pf
 import AIStrategy as Strategy
 
@@ -12,7 +12,6 @@ class Player():
         self.turns = 0
 
     def action(sefl,turns):
-        t = time.time()
         if self.turns < 24:
             action = self.strategy.placingPhase(self.board, self.player)
         else:
