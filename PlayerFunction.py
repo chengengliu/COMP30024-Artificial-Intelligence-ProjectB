@@ -86,10 +86,10 @@ def legalMove(board, row, column, shrink, dir):
             return True
     if(dir == 'right'):
         if(legalPosition(row, column+1,shrink) and
-            board[column+1][row] == '-');
+            board[column+1][row] == '-'):
             return True
     return False
-    
+
 def legalJump(board, row, column, shrink, dir):
     '''
     查看下一步跳跃方向是否合法。
@@ -109,6 +109,23 @@ def legalJump(board, row, column, shrink, dir):
             return True
     if(dir == 'right'):
         if(legalPosition(row, column+2,shrink) and
-            board[column+2][row] == '-');
+            board[column+2][row] == '-'):
             return True
     return False
+
+def tryMoves(board, piece, shrink):
+    '''
+    Return number of legal moves.
+    Piece是需要检查的的Piece type. i.e, 'O' or '@'
+    '''
+    number = 0
+    directions = ['up', 'down', 'left', 'right'];
+    for row in range(0,8):
+        for column in range(0,8):
+            if(board[column][row] == piece):
+                for dir in directions:
+                    if legalMove(board,row, column, shrink,dir):
+                        move+=1;
+                    elif legalJump(board, row, column, shrink, dir):
+                        move+=1;
+    return number
