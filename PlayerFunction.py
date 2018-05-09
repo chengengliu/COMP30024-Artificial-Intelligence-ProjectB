@@ -207,10 +207,10 @@ def eliminatePiece(board, piece):
     return an updated board.
     '''
     for row in range(0,8):
-        for column in range(0,8);
-        if(board[column][row] == piece):
-            if(hasNeighbour(board,row,column)):
-                board[column][row] = '-'
+        for column in range(0,8):
+            if(board[column][row] == piece):
+                if(hasNeighbour(board,row,column)):
+                    board[column][row] = '-'
     return board
 
 def hasNeighbour(board, row, column):
