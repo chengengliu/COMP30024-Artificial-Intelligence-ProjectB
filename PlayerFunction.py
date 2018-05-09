@@ -66,6 +66,65 @@ def numberOnBoard(board):
                 number+=1
     return number
 
+def makeMoveJump(board, row, column, shrink, dir):
+    '''
+    Do move. Check if it is legal before setting the new location
+    '''
+    if(legalMove(board, row, column, shrink, dir)):
+        return move(board, row, column, shrink, dir);
+    elif(legalJump(board, row, column, shrink, dir)):
+        return jump(board, row, column, shrink, dir);
+    return None
+
+def move(board, row, column, shrink, dir):
+    '''
+    移动棋子。()无需再做检查，在call之前已经做过检查了。)
+
+    return a List of new Location
+    '''
+    currentLocation = [column, row];
+    if(dir == 'up'):
+        board[column][row-1] = board[column][row]
+        board[column][row] = '-'
+        newLocation = [column, row-1]
+    elif(dir == 'down'):
+        board[column][row+1] = board[column][row]
+        board[column][row] = '-'
+        newLocation = [column, row-1]
+    elif(dir == 'left'):
+        boad[column-1][row] = board[column][row]
+        board[column][row] = '-'
+        newLocation = [column-1, row]
+    elif(dir == 'right'):
+        board[column+1][row] = board[column][row]
+        board[colu]][row] = '-'
+        newLocation = [column+1,row]
+    return newLocation
+
+def jump(baord, row, column, shrink, dir):
+    '''
+    棋子跳跃。（无需再做检查，在call之前已经做过检查了）
+    return a List of New Location
+    '''
+    currentLocation = [column, row]
+    if(dir == 'up'):
+        board[column][row-2] = board[column][row]
+        board[column][row] = '-'
+        newLocation = [column, row-2]
+    elif(dir == 'down'):
+        board[column][row+2] = board[column][row]
+        board[column][row] = '-'
+        newLocation = [column, row-2]
+    elif(dir == 'left'):
+        boad[column-2][row] = board[column][row]
+        board[column][row] = '-'
+        newLocation = [column-2, row]
+    elif(dir == 'right'):
+        board[column+2][row] = board[column][row]
+        board[colu]][row] = '-'
+        newLocation = [column+2,row]
+    return newLocation
+
 def legalMove(board, row, column, shrink, dir):
     '''
     查看下一步moving direction是否合法。 不包括跳跃
