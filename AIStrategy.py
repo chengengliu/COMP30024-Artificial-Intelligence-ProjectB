@@ -28,12 +28,8 @@ class Strategy:
         Have the alpha-beta pruning algorithm as well.
         a: alpha
         b: beta
-        还有一个问题： 如何解决当最后剩余棋子两个？四个？很少的时候
-        而且如何解决 深度问题 depth不能太深。 当深度超过一定范围时候，是否应该跳出
-        MinMax搜索以避免memory不足？
-
         '''
-        if depth == 5 or board.playerPieces <= 12:
+        if depth == 2 or board.playerPieces <= 12:
             return Utility(board)
 
         if color == board.player:
@@ -62,13 +58,40 @@ class Strategy:
         '''
         Moving phase for the player
         '''
-        copyOfBoard = []
-        #copyOfBoard = deepcopy(board)
-        #copyOfBoard.makeMove()
+        movingList = []
+        #print("HELLLLLLLLO")
         for move in board.possibleMoves(color):
+            #Remember that move is 2 2D tuple contaning "Origin" and "Goal". Two positions
             copyOfBoard = deepcopy(board)
-            copyOfBoard.makeMove()
+            copyOfBoard.makeMove(color,move[0], move[1])
+            movingList.append((self.movingMinMax(copyOfBoard,board.opponent,-math.inf,math.inf,0),move))
+        #print("HEEEALDALJBSDAJLS")
+        print(max(movingList)[1])
 
+        return max(movingList)[1] #Sort based on Utility. Return the best move
 
     def movingMinMax(self,board, color, a,b,depth):
-        pass
+        if depth == 2 or board.playerPieces <= 15:
+            return Utility(board)
+
+        if color == board.player:
+            value = -math.inf
+            # PossiblePlacing will return a (row,column) tuple
+            for move in board.possibleMoves(color):
+                copyOfBoard = deepcopy(board)
+                copyOfBoard.makeMove(color, move[0], move[1])
+                value = max(value,self.placingMinMax(copyOfBoard, board.opponent, a,b,depth+1))
+                a = max(a,value)
+                if b <= a:
+                    break
+            return value
+        else:
+            value = math.inf
+            for move in board.possibleMoves(color):
+                copyOfBoard = deepcopy(board)
+                copyOfBoard.makeMoveJump(color,move[0], move[1])
+                value = min(value,self.placingMinMax(copyOfBoard, board.player, a,b,depth+1))
+                b = min(b,value)
+                if b<=a:
+                    break
+            return value

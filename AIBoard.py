@@ -163,7 +163,8 @@ class Board:
     def possibleMoves(self,color):
         '''
         Return a list of tuple containing position and possible moves.
-
+        It is a 2-D tuple inside the list. Be careful when trying to get the return type.
+        i.e [(current position),(possible position)]
         '''
         moves = []
         for column in range(len(self.grid)):
@@ -192,7 +193,7 @@ class Board:
                 moves.append((row-1,column))
         except:
             pass
-        #Down
+        #Down.
         try :
             if(self.grid[column][row+1] == "-" and row+1<=7):
                 moves.append((row+1,column))
@@ -216,7 +217,6 @@ class Board:
                 moves.append((row,column+2))
         except:
             pass
-
         return moves
 
 #####################################################################
