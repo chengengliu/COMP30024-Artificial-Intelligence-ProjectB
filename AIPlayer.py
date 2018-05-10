@@ -15,7 +15,6 @@ class Player:
         self.strategy = Strategy()
         self.opponent = self.board.opponent
         self.player = self.board.player
-        self.moving = False
         self.turns = 0
 
     def action(self,turns):
@@ -27,10 +26,12 @@ class Player:
             action = self.strategy.movingPhase(self.board, self.player)
             self.board.makeMove(self.player,action[0], action[1])
 
-        if (turns >128 and turns <=192):
+        if (turns >128 and turns <192):
             self.board.size = 6
-        elif (turns > 192):
+            self.board.shrinkBoard(self.board.numberOfShrink())
+        elif (turns >= 192):
             self.board.size = 4
+            self.board.shrinkBoard(self.board.numberOfShrink())
         return action
 
     def update(self, action):

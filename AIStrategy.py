@@ -11,7 +11,6 @@ class Strategy:
         Placing phase for the player
         '''
         placingList = []
-
         for places in board.possiblePlacing(color):
             #Make a copy as we don't want to change the board.
             #Several movements are "made" and the best will be selected
@@ -27,7 +26,7 @@ class Strategy:
         a: alpha
         b: beta
         '''
-        if depth == 2 or board.playerPieces <= 10:
+        if depth == 2 or board.playerPieces <= 15:
             return Utility(board)
 
         if color == board.player:
@@ -69,7 +68,7 @@ class Strategy:
         return max(movingList)[1] #Sort based on Utility. Return the best move
 
     def movingMinMax(self,board, color, a,b,depth):
-        if depth == 4 or board.playerPieces <= 10:
+        if depth == 2 or board.playerPieces <= 15:
             return Utility(board)
 
         if color == board.player:

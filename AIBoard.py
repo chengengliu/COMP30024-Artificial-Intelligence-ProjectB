@@ -19,13 +19,13 @@ class Board:
         self.size = INITIALSIZE
         self.grid = boardInit()
         self.opponent = getOpponent(color)
-        self.shrinkBoard(self.numberOfShrink())
+        #self.shrinkBoard(self.numberOfShrink())
 
     def update(self,color):
         '''
         More on updating
         '''
-        self.eliminate(color)
+        #self.eliminate(color)
         opponent = getOpponent(color)
         self.eliminate(opponent)
         numberOfPlayer, numberOfOpponent = 0,0
@@ -49,6 +49,21 @@ class Board:
         self.grid[column][row] = color
         self.update(color)
 
+    def makeMove(self, color, origin, goal):
+        '''
+        Make move from an original point to a goal point.
+        It is called after it being checked as it is proper to move.
+        # makeMove call update
+        '''
+        columnFrom = origin[1]
+        rowFrom = origin[0]
+        columnTo = goal[1]
+        rowTo = goal[0]
+        #update the board
+        self.grid[columnFrom][rowFrom] = "-"
+        self.grid[columnTo][rowTo] = color
+        self.update(color)
+
     def possiblePlacing(self,color):
         '''
         Return a list of possible placing phase
@@ -66,7 +81,7 @@ class Board:
                     places.append((row,column)) #row column 的tuple
         shuffle(places)
         return places
-    '''  ########################################################################'''
+    '''######################################################################'''
     def numberOfShrink(self):
         '''
         Given the size of the board, decide the number of shrinking size
@@ -95,22 +110,7 @@ class Board:
 
         for corner in corners:
             self.grid[corner[1]][corner[0]] = CORNER
-
-    def makeMove(self, color, origin, goal):
-        '''
-        Make move from an original point to a goal point.
-        It is called after it being checked as it is proper to move.
-        # makeMove call update
-        '''
-        columnFrom = origin[1]
-        rowFrom = origin[0]
-        columnTo = goal[1]
-        rowTo = goal[0]
-        #update the board
-        self.grid[columnFrom][rowFrom] = "-"
-        self.grid[columnTo][rowTo] = color
-        #print(color + "HELOOOOOOOO MOTHER FUCKER", self.grid[columnFrom][rowFrom])
-        self.update(color)
+        print (self.grid)
 
     def eliminate(self,color):
         #Traverse all grid
@@ -153,8 +153,6 @@ class Board:
             pass
         return False
 
-
-
     def possibleMoves(self,color):
         '''
         Return a list of tuple containing position and possible moves.
@@ -168,7 +166,6 @@ class Board:
                 if p == color:
                     for move in self.fourMoves((row,column)):
                         moves.append(((row,column),move))
-        print(moves)
         shuffle(moves)
         return moves
 
