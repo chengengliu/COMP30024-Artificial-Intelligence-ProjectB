@@ -14,9 +14,9 @@ class Board:
         self.size = 8
         self.grid = boardInit()
         self.opponent = opponent(color)
-        self.shrinkBoard(numberofShrink())
+        self.shrinkBoard(numberOfShrink())
 
-    def numberofShrink():
+    def numberOfShrink():
         '''
         Given the size of the board, decide the number of shrinking size
         '''
@@ -61,7 +61,13 @@ class Board:
 
     def eliminate(self,color):
 
-        
+
+
+
+    def possibleEliminate(self,color):
+
+
+
 
 
 
@@ -150,8 +156,8 @@ def boardInit():
     print(board)
     for index in [[0,0], [0,7], [7,7],[7,0]]:
         board[index[0]][index[1]] = CORNER
-
     return board
+
 def opponent(color):
     '''
     Oponent color given the color of the player.
