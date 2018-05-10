@@ -56,17 +56,19 @@ class Strategy:
             for place in board.possiblePlacing(color):
                 copyOfBoard = deepcopy(board)
                 #print("!!")
-                print("Hello")
+                #print("Hello")
                 copyOfBoard.place(color,place)
                 value = max(value,self.placingMinMax(copyOfBoard, board.opponent, a,b,depth+1))
                 a = max(a,value)
                 if b <= a:
+                    #print("FUCKKKKKKKKKKK")
                     break
+            print("Value is ", value)
             return value
         else:
             value = math.inf
             for place in board.possiblePlacing(color):
-                print("helloasdkjbkajsbdkajsdkjabksdjaksdjkasjbdkajskdjaskdjkasjdkasjdksja")
+                #print("helloasdkjbkajsbdkajsdkjabksdjaksdjkasjbdkajskdjaskdjkasjdkasjdksja")
                 copyOfBoard = deepcopy(board)
                 copyOfBoard.place(color,place)
                 #print(place)

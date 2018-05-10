@@ -3,6 +3,7 @@ BLACK = "@"
 CORNER = "X"
 EMPTY = "-"
 INITIALSIZE = 8
+from random import shuffle
 class Board:
     def __init__(self,color):
         # I treat color as a char symbol
@@ -18,6 +19,25 @@ class Board:
         self.opponent = getOpponent(color)
         self.shrinkBoard(self.numberOfShrink())
 
+    def update(self,color):
+        '''
+        More on updating
+        '''
+        #self.eliminate(color)
+        opponent = getOpponent(color)
+        self.eliminate(opponent)
+        #print("SSS")
+        numberOfPlayer, numberOfOpponent = 0,0
+        for column in range(len(self.grid)):
+            for row in range(len(self.grid[column])):
+                p = self.grid[column][row]
+                if(p == self.player):
+                    numberOfPlayer+=1
+                if(p == self.opponent):
+                    numberOfOpponent+=1
+        self.playerPieces = numberOfPlayer
+        self.opponentPieces = numberOfOpponent
+        #print(self.playerPieces)
 
     def place(self,color, position):
         '''
@@ -28,8 +48,29 @@ class Board:
         column = position[1]
         row = position[0]
         self.grid[column][row] = color
+        #print(color)
+        #print(self.grid[column][row])
+        #print_board(self)
         self.update(color)
 
+    def possiblePlacing(self,color):
+        '''
+        Return a list of possible placing phase
+        '''
+        places = []
+        #Possible placing range of different colors
+        if color == WHITE:
+            min,max = 0,5
+        if color == BLACK:
+            min,max = 2,7
+
+        for column in range(min,max+1):
+            for row in range(len(self.grid[column])):
+                if(self.grid[column][row] == "-"): # If empty
+                    places.append((row,column)) #row column 的tuple
+        shuffle(places)
+        return places
+    '''  ########################################################################'''
     def numberOfShrink(self):
         '''
         Given the size of the board, decide the number of shrinking size
@@ -74,35 +115,17 @@ class Board:
         self.gird[columnTo][rowTo] = color
         self.update(color)
 
-
-    def update(self,color):
-        '''
-        More on updating
-        '''
-        self.eliminate(color)
-        opponent = getOpponent(color)
-        self.eliminate(opponent)
-        numberOfPlayer, numberOfOpponent = 0,0
-        for column in range(len(self.grid)):
-            for row in range(len(self.grid[column])):
-                p = self.grid[column][row]
-                if(p == self.player):
-                    numberOfPlayer+=1
-                if(p == self.opponent):
-                    numberOfOpponent+=1
-        self.playerPieces = numberOfPlayer
-        self.opponentPieces = numberOfOpponent
-
-
     def eliminate(self,color):
         #Traverse all grid
         for column in range(len(self.grid)):
             for row in range(len(self.grid[column])):
                 p = self.grid[column][row]
+                #print(p)
                 #If the color is the opponent color and Possible to
                 # Eliminate, remove it as empty.
                 if p == getOpponent(color) and self.possibleEliminate((row,column)):
                     self.grid[column][row] = "-"
+                    #print(self.grid[column][row])
 
 
     def possibleEliminate(self,positions):
@@ -135,22 +158,7 @@ class Board:
             pass
         return False
 
-    def possiblePlacing(self,color):
-        '''
-        Return a list of possible placing phase
-        '''
-        places = []
-        #Possible placing range of different colors
-        if color == WHITE:
-            min,max = 0,5
-        if color == BLACK:
-            min,max = 2,7
 
-        for column in range(min,max+1):
-            for row in range(len(self.grid[column])):
-                if(self.grid[column][row] == "-"): # If empty
-                    places.append((row,column)) #row column 的tuple
-        return places
 
     def possibleMoves(self,color):
         '''
@@ -249,3 +257,13 @@ grid2 = boardInit()
 #print(grid2)
 print(len(grid))
 '''
+def print_board(board):
+    for row in board.grid:
+        string = ""
+        for col in row:
+            if col != "?":
+                string+= col
+            else:
+                string+= " "
+            string+= " "
+        print(string)
