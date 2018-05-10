@@ -15,23 +15,13 @@ class Strategy:
         Placing phase for the player
         '''
         placingList = []
-        #copyOfBoard = deepcopy(board)
+
         for places in board.possiblePlacing(color):
             copyOfBoard = deepcopy(board)
             copyOfBoard.place(color, places)
-            #print(copyOfBoard)
-            #print("!!!!!!!!!!")
-            #print(place)
             placingList.append((self.placingMinMax(copyOfBoard,board.opponent, -math.inf,math.inf,0),places))
-            #print(place)
-        #print( max(copyOfBoards)[1])
-        #print(max(copyOfBoards)[1])
-        #print("Hello")
-        #print(max(copyOfBoards)[1])
-        return max(placingList)[1]
 
-        #copyOfBoard.place(color, )
-        #copyOfBoard.append()
+        return max(placingList)[1] #Sort the list of possible actions. Return the best one
     def placingMinMax(self,board, color, a, b,depth):
         '''
         MinMax algorithm used for placing phase.
@@ -43,11 +33,7 @@ class Strategy:
         MinMax搜索以避免memory不足？
 
         '''
-        #print("Hello")
-        ################ Terminated
-        #print(depth)
-
-        if depth == 5 or board.playerPieces <=20:
+        if depth == 5 or board.playerPieces <= 12:
             return Utility(board)
 
         if color == board.player:
@@ -55,33 +41,21 @@ class Strategy:
             # PossiblePlacing will return a (row,column) tuple
             for place in board.possiblePlacing(color):
                 copyOfBoard = deepcopy(board)
-                #print("!!")
-                #print("Hello")
                 copyOfBoard.place(color,place)
                 value = max(value,self.placingMinMax(copyOfBoard, board.opponent, a,b,depth+1))
                 a = max(a,value)
                 if b <= a:
-                    #print("FUCKKKKKKKKKKK")
                     break
-            print("Value is ", value)
             return value
         else:
             value = math.inf
             for place in board.possiblePlacing(color):
-                #print("helloasdkjbkajsbdkajsdkjabksdjaksdjkasjbdkajskdjaskdjkasjdkasjdksja")
                 copyOfBoard = deepcopy(board)
                 copyOfBoard.place(color,place)
-                #print(place)
-                #print("2222")
                 value = min(value,self.placingMinMax(copyOfBoard, board.player, a,b,depth+1))
-                #print(value)
                 b = min(b,value)
-                #print(b, value)
                 if b<=a:
-                    #print("111")
                     break
-            #print ("World")
-            #print(value)
             return value
 
     def movingPhase(self,board, color):
