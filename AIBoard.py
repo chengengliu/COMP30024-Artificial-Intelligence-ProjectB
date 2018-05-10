@@ -59,19 +59,46 @@ class Board:
         pass
 
 
+
     def eliminate(self,color):
-        for column in rnage(8):
+        #Traverse all grid
+        for column in range(len(self.grid)):
+            for row in range(len(self.grid[column])):
+                p = self.grid[column][row]
+                #If the color is the opponent color
+                if p == opponent(color) and self.possibleEliminate((row,column)):
+                    self.grid[column][row] = "-"
+        return None
+
+    def possibleEliminate(self,positions):
+        column = positions[1]
+        row = positions[0]
+        piece = self.grid[column][row]
+        opponent = opponent(piece)
+        '''
+        Eliminating phase
+        Need to consider pieces that are either on a same vertical axis
+        or a horizontal axis
+        '''
+        #Up and down, vertical axis
+        try:
+            up = self.grid[column][row-1]
+            down = self.grid[column][row+1]
+            if((up == opponent or up == CORNER) and (down == opponent or
+                down == CORNER)):
+                return True
+        except:
             pass
-
-
-
-    def possibleEliminate(self,color):
-        pass
-
-
-
-
-
+        #Left and right, horizontal axis
+        try :
+            left = self.grid[column-1][row]
+            right = self.grid[column+1][row]
+            if((left == opopnent or left == CORNER) and (right == opponent or
+                right == CORNER)):
+                return True
+        except:
+            pass
+        return False
 
     def possiblePlacing(color):
         '''
@@ -113,7 +140,7 @@ class Board:
         column = position[1]
         row = position[0]
         moves = []
-        #Left
+        #Up
         try :
             if(self.gird[column][row-1] == "-" and row-1 >=0):
                 moves.append((row-1,column))
@@ -121,7 +148,7 @@ class Board:
                 moves.append((row-1,column))
         except:
             pass
-        #Right
+        #Down
         try :
             if(self.gird[column][row+1] == "-" and row+1<=7):
                 moves.append((row+1,column))
@@ -129,7 +156,7 @@ class Board:
                 moves.append((row+2,column))
         except:
             pass
-        #Up
+        #Left
         try :
             if(self.grid[column-1][row] == "-" and column-1>=0):
                 moves.append((row,column-1))
@@ -137,7 +164,7 @@ class Board:
                 moves.append((row,column-2))
         except:
             pass
-        #Down
+        #Right
         try :
             if(self.grid[column+1][row] == "-" and column+1 <=7):
                 moves.appent((row,column+1))
@@ -167,11 +194,21 @@ def opponent(color):
         return BLACK
     else:
         return WHITE
+
 def empty_grid(size):
+    '''
+    A total empty board with all "-"
+    '''
     grid = [[EMPTY for i in range(size)] for i in range(size)]
     return grid
 '''
 grid = empty_grid(8)
-print (grid)
+print(len(grid[1]))
+for column in range(len(grid)):
+    for row in range(len(grid[column])):
+        print (column,row)
+#print (grid)
 grid2 = boardInit()
-print(grid2)'''
+#print(grid2)
+print(len(grid))
+'''
