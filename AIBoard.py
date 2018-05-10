@@ -1,7 +1,7 @@
 WHITE = "O"
 BLACK = "@"
 CORNER = "X"
-
+EMPTY = "-"
 class Board:
     def __init__(self,color):
         if color == 'white':
@@ -56,16 +56,17 @@ class Board:
 
 
     def update(self,color):
-
+        pass
 
 
     def eliminate(self,color):
-
+        for column in rnage(8):
+            pass
 
 
 
     def possibleEliminate(self,color):
-
+        pass
 
 
 
@@ -153,7 +154,7 @@ def boardInit():
     Initialise an empty board
     '''
     board = [['-' for x in range(0,8)] for y in range(0,8)]
-    print(board)
+    #print(board)
     for index in [[0,0], [0,7], [7,7],[7,0]]:
         board[index[0]][index[1]] = CORNER
     return board
@@ -166,3 +167,11 @@ def opponent(color):
         return BLACK
     else:
         return WHITE
+def empty_grid(size):
+    grid = [[EMPTY for i in range(size)] for i in range(size)]
+    return grid
+'''
+grid = empty_grid(8)
+print (grid)
+grid2 = boardInit()
+print(grid2)'''
