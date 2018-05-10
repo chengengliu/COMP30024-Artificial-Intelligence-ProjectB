@@ -18,15 +18,20 @@ class Player:
         self.turns = 0
 
     def action(self,turns):
-        if self.turns < 24:
+        self.turns+=1
+        if self.turns <= 24:
             action = self.strategy.placingPhase(self.board, self.player)
+            self.board.place(self.player, action)
             #print("Hello")
         else:
+            #print("FUCCCCCCCCCCCCCCKCKCKCKCKCKCK")
             action = self.strategy.movingPhase(self.board, self.player)
+            #print(action)
+            self.board.makeMove(self.player,action[0], action[1])
         #self.update(action,self.player)
         #print(action)
-        print("Action is ", action)
-        self.board.place(self.player, action)
+        #print("Action is ", action)
+
         return action
 
     def update(self, action):
@@ -35,14 +40,11 @@ class Player:
         #print("World")
         self.turns+=1
 
-        if self.turns < 24:
+        if self.turns <= 24:
             self.board.place(self.opponent, action)
         else:
             #print("wrodl")
             self.board.makeMove(self.opponent,origin,goal)
-
-
-
         '''
         if self.turns < 24:
             self.board.place(color,action)'''

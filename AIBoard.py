@@ -173,6 +173,7 @@ class Board:
                 if p == color:
                     for move in self.fourMoves((row,column)):
                         moves.append(((row,column),move))
+        shuffle(moves)
         return moves
 
     def fourMoves(self,position):
