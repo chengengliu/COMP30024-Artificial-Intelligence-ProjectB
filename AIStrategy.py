@@ -71,7 +71,7 @@ class Strategy:
         return max(movingList)[1] #Sort based on Utility. Return the best move
 
     def movingMinMax(self,board, color, a,b,depth):
-        if depth == 2 or board.playerPieces <= 15:
+        if depth == 2 or board.playerPieces <= 5:
             return Utility(board)
 
         if color == board.player:
@@ -89,7 +89,7 @@ class Strategy:
             value = math.inf
             for move in board.possibleMoves(color):
                 copyOfBoard = deepcopy(board)
-                copyOfBoard.makeMoveJump(color,move[0], move[1])
+                copyOfBoard.makeMove(color,move[0], move[1])
                 value = min(value,self.placingMinMax(copyOfBoard, board.player, a,b,depth+1))
                 b = min(b,value)
                 if b<=a:

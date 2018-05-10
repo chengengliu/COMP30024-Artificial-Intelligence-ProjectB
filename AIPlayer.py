@@ -28,6 +28,11 @@ class Player:
             action = self.strategy.movingPhase(self.board, self.player)
             #print(action)
             self.board.makeMove(self.player,action[0], action[1])
+
+        if (turns >128 and turns <=192):
+            self.board.size = 6
+        elif (turns > 192):
+            self.board.size = 4
         #self.update(action,self.player)
         #print(action)
         #print("Action is ", action)

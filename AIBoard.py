@@ -23,9 +23,10 @@ class Board:
         '''
         More on updating
         '''
-        #self.eliminate(color)
+        self.eliminate(color)
         opponent = getOpponent(color)
         self.eliminate(opponent)
+
         #print("SSS")
         numberOfPlayer, numberOfOpponent = 0,0
         for column in range(len(self.grid)):
