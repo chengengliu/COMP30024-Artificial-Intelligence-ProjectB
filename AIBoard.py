@@ -2,8 +2,10 @@ WHITE = "O"
 BLACK = "@"
 CORNER = "X"
 EMPTY = "-"
+INITIALSIZE = 8
 class Board:
     def __init__(self,color):
+        # I treat color as a char symbol
         if color == 'white':
             color = WHITE
         else:
@@ -11,7 +13,7 @@ class Board:
         self.player = color
         self.playerPieces = 0
         self.opponentPieces = 0
-        self.size = 8
+        self.size = INITIALSIZE
         self.grid = boardInit()
         self.opponent = opponent(color)
         self.shrinkBoard(numberOfShrink())
@@ -54,25 +56,40 @@ class Board:
         rowFrom = origin[o]
         columnTo = goal[1]
         rowTo = goal[0]
+        #update the board
         self.grid[columnFrom][rowFrom] = "-"
         self.gird[columnTo][rowTo] = color
         self.update(color)
 
 
     def update(self,color):
-        pass
-
-
+        '''
+        More on updating
+        '''
+        self.eliminate(color)
+        opponent = opponent(color)
+        self.eliminate(opponent)
+        numberOfPlayer, numberOfOpponent = 0,0
+        for column in range(len(self.grid)):
+            for row in range(leng(slef.grid[column])):
+                p = self.grid[column][row]
+                if(p == self.player):
+                    numberOfPlayer+=1
+                if(p == self.opponent):
+                    numberOfOpponent+=1
+        self.playerPieces = numberOfPlayer
+        self.opponentPieces = numberOfOpponent
 
     def eliminate(self,color):
         #Traverse all grid
         for column in range(len(self.grid)):
             for row in range(len(self.grid[column])):
                 p = self.grid[column][row]
-                #If the color is the opponent color
+                #If the color is the opponent color and Possible to
+                # Eliminate, remove it as empty.
                 if p == opponent(color) and self.possibleEliminate((row,column)):
                     self.grid[column][row] = "-"
-        return None
+
 
     def possibleEliminate(self,positions):
         column = positions[1]
@@ -140,7 +157,7 @@ class Board:
         Check possible moves
         Return a list of possible moves
         查看上下左右 Try
-        ######################这里有个问题，这个list做出来，move的方向是根据谁来决定的。 
+        ######################这里有个问题，这个list做出来，move的方向是根据谁来决定的。
         '''
         column = position[1]
         row = position[0]
@@ -177,6 +194,7 @@ class Board:
                 moves.append((row,column+2))
         except:
             pass
+
         return moves
 
 #####################################################################
