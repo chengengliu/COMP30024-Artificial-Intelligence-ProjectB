@@ -18,6 +18,18 @@ class Board:
         self.opponent = opponent(color)
         self.shrinkBoard(numberOfShrink())
 
+
+    def place(color, position):
+        '''
+        Used for placing piece.
+        Call update, since every time place a piece, you need to check
+        if it can eliminate other pieces. 
+        '''
+        column = position[1]
+        row = position[0]
+        self.grid[column][row] = color
+        self.update(color)
+
     def numberOfShrink():
         '''
         Given the size of the board, decide the number of shrinking size
@@ -51,6 +63,7 @@ class Board:
         '''
         Make move from an original point to a goal point.
         It is called after it being checked as it is proper to move.
+        # makeMove call update
         '''
         columnFrom = origin[1]
         rowFrom = origin[o]
