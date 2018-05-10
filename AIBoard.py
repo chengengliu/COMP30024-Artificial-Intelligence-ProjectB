@@ -107,12 +107,12 @@ class Board:
         # makeMove call update
         '''
         columnFrom = origin[1]
-        rowFrom = origin[o]
+        rowFrom = origin[0]
         columnTo = goal[1]
         rowTo = goal[0]
         #update the board
         self.grid[columnFrom][rowFrom] = "-"
-        self.gird[columnTo][rowTo] = color
+        self.grid[columnTo][rowTo] = color
         self.update(color)
 
     def eliminate(self,color):
@@ -151,7 +151,7 @@ class Board:
         try :
             left = self.grid[column-1][row]
             right = self.grid[column+1][row]
-            if((left == opopnent or left == CORNER) and (right == opponent or
+            if((left == opponent or left == CORNER) and (right == opponent or
                 right == CORNER)):
                 return True
         except:
@@ -186,7 +186,7 @@ class Board:
         moves = []
         #Up
         try :
-            if(self.gird[column][row-1] == "-" and row-1 >=0):
+            if(self.grid[column][row-1] == "-" and row-1 >=0):
                 moves.append((row-1,column))
             elif(self.grid[column][row-2] == "-" and row-2>=0):
                 moves.append((row-1,column))
@@ -194,7 +194,7 @@ class Board:
             pass
         #Down
         try :
-            if(self.gird[column][row+1] == "-" and row+1<=7):
+            if(self.grid[column][row+1] == "-" and row+1<=7):
                 moves.append((row+1,column))
             elif(self.grid[column][row+2] == "-" and row+2<=7):
                 moves.append((row+2,column))
@@ -211,7 +211,7 @@ class Board:
         #Right
         try :
             if(self.grid[column+1][row] == "-" and column+1 <=7):
-                moves.appent((row,column+1))
+                moves.append((row,column+1))
             elif(self.grid[column+2][row] == "-" and column+2<=7):
                 moves.append((row,column+2))
         except:

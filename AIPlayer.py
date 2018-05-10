@@ -22,7 +22,7 @@ class Player:
             action = self.strategy.placingPhase(self.board, self.player)
             #print("Hello")
         else:
-            action = self.startegy.moving(self.board, self.player)
+            action = self.strategy.movingPhase(self.board, self.player)
         #self.update(action,self.player)
         #print(action)
         print("Action is ", action)
