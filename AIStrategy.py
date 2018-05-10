@@ -19,7 +19,13 @@ class Strategy:
         '''
         MinMax algorithm used for placing phase.
         Have the alpha-beta pruning algorithm as well.
+        a: alpha
+        b: beta
 
+        还有一个问题： 如何解决当最后剩余棋子两个？四个？很少的时候
+        而且如何解决 深度问题 depth不能太深。 当深度超过一定范围时候，是否应该跳出
+        MinMax搜索以避免memory不足？
+        
         '''
         if color == board.player:
             value = -math.inf
