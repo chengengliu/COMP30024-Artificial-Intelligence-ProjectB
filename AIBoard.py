@@ -45,7 +45,11 @@ class Board:
         for corner in corners:
             self.gird[corner[1]][corner[0]] = CORNER
 
-    def move(self, color, origin, goal):
+    def makeMove(self, color, origin, goal):
+        '''
+        Make move from an original point to a goal point.
+        It is called after it being checked as it is proper to move.
+        '''
         columnFrom = origin[1]
         rowFrom = origin[o]
         columnTo = goal[1]
@@ -136,6 +140,7 @@ class Board:
         Check possible moves
         Return a list of possible moves
         查看上下左右 Try
+        ######################这里有个问题，这个list做出来，move的方向是根据谁来决定的。 
         '''
         column = position[1]
         row = position[0]
