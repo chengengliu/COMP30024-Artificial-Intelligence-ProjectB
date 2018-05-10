@@ -1,6 +1,7 @@
 import math
 CORNER  = "X"
 EMPTY = "-"
+CENTER = 3.5
 class Utility:
     def __init__(self,board):
         self.board = board
@@ -29,7 +30,7 @@ class Utility:
         if other == -math.inf:
             return False
         elif other == math.inf:
-            return True
+            return False
         return (piecesRemain(self.board),pieceDensity(self.board), fragilePiece(self.board))==(piecesRemain(other.board),pieceDensity(other.board), fragilePiece(other.board))
     def __ne__(self,other):
         if other == -math.inf:
@@ -59,7 +60,7 @@ def pieceDensity(board):
             if piece == board.player:
                 pieceNum+=1
                 distance+=math.sqrt((abs(column-CENTER)**2)+(abs(row-CENTER)**2))
-    if p ==0:
+    if pieceNum ==0:
         return 0
     else:
         distance/= pieceNum
