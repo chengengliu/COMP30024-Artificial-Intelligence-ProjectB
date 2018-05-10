@@ -1,9 +1,11 @@
+from random import shuffle
+
 WHITE = "O"
 BLACK = "@"
 CORNER = "X"
 EMPTY = "-"
 INITIALSIZE = 8
-from random import shuffle
+
 class Board:
     def __init__(self,color):
         # I treat color as a char symbol
@@ -26,8 +28,6 @@ class Board:
         self.eliminate(color)
         opponent = getOpponent(color)
         self.eliminate(opponent)
-
-        #print("SSS")
         numberOfPlayer, numberOfOpponent = 0,0
         for column in range(len(self.grid)):
             for row in range(len(self.grid[column])):
@@ -38,8 +38,6 @@ class Board:
                     numberOfOpponent+=1
         self.playerPieces = numberOfPlayer
         self.opponentPieces = numberOfOpponent
-        #print(self.playerPieces)
-
     def place(self,color, position):
         '''
         Used for placing piece.
@@ -49,9 +47,6 @@ class Board:
         column = position[1]
         row = position[0]
         self.grid[column][row] = color
-        #print(color)
-        #print(self.grid[column][row])
-        #print_board(self)
         self.update(color)
 
     def possiblePlacing(self,color):
@@ -114,6 +109,7 @@ class Board:
         #update the board
         self.grid[columnFrom][rowFrom] = "-"
         self.grid[columnTo][rowTo] = color
+        #print(color + "HELOOOOOOOO MOTHER FUCKER", self.grid[columnFrom][rowFrom])
         self.update(color)
 
     def eliminate(self,color):
@@ -121,13 +117,11 @@ class Board:
         for column in range(len(self.grid)):
             for row in range(len(self.grid[column])):
                 p = self.grid[column][row]
-                #print(p)
                 #If the color is the opponent color and Possible to
                 # Eliminate, remove it as empty.
                 if p == getOpponent(color) and self.possibleEliminate((row,column)):
+                    #print( " 消灭了"):
                     self.grid[column][row] = "-"
-                    #print(self.grid[column][row])
-
 
     def possibleEliminate(self,positions):
         column = positions[1]
@@ -174,6 +168,7 @@ class Board:
                 if p == color:
                     for move in self.fourMoves((row,column)):
                         moves.append(((row,column),move))
+        print(moves)
         shuffle(moves)
         return moves
 
@@ -192,7 +187,7 @@ class Board:
             if(self.grid[column][row-1] == "-" and row-1 >=0):
                 moves.append((row-1,column))
             elif(self.grid[column][row-2] == "-" and row-2>=0):
-                moves.append((row-1,column))
+                moves.append((row-2,column))
         except:
             pass
         #Down.
@@ -219,6 +214,8 @@ class Board:
                 moves.append((row,column+2))
         except:
             pass
+
+        shuffle(moves)
         return moves
 
 #####################################################################
@@ -228,7 +225,6 @@ def boardInit():
     Initialise an empty board
     '''
     board = [['-' for x in range(0,8)] for y in range(0,8)]
-    #print(board)
     for index in [[0,0], [0,7], [7,7],[7,0]]:
         board[index[0]][index[1]] = CORNER
     return board
@@ -248,17 +244,7 @@ def empty_grid(size):
     '''
     grid = [[EMPTY for i in range(size)] for i in range(size)]
     return grid
-'''
-grid = empty_grid(8)
-print(len(grid[1]))
-for column in range(len(grid)):
-    for row in range(len(grid[column])):
-        print (column,row)
-#print (grid)
-grid2 = boardInit()
-#print(grid2)
-print(len(grid))
-'''
+
 def print_board(board):
     for row in board.grid:
         string = ""

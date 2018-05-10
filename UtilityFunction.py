@@ -1,7 +1,9 @@
 import math
+
 CORNER  = "X"
 EMPTY = "-"
 CENTER = 3.5
+
 class Utility:
     def __init__(self,board):
         self.board = board
@@ -11,47 +13,45 @@ class Utility:
             return False
         elif other == math.inf:
             return True
-        return (piecesRemain(self.board),pieceDensity(self.board), fragilePiece(self.board))<(piecesRemain(other.board),pieceDensity(other.board), fragilePiece(other.board))
+        return (piecesRemain(self.board),pieceDistance(self.board), fragilePiece(self.board))<(piecesRemain(other.board),pieceDistance(other.board), fragilePiece(other.board))
     def __gt__(self,other):
         if other == -math.inf:
             return True
         elif other == math.inf:
             return False
-        return (piecesRemain(self.board),pieceDensity(self.board), fragilePiece(self.board))>(piecesRemain(other.board),pieceDensity(other.board), fragilePiece(other.board))
+        return (piecesRemain(self.board),pieceDistance(self.board), fragilePiece(self.board))>(piecesRemain(other.board),pieceDistance(other.board), fragilePiece(other.board))
 
     def __ge__(self,other):
         if other == -math.inf:
             return True
         elif other == math.inf:
             return False
-        return (piecesRemain(self.board),pieceDensity(self.board), fragilePiece(self.board))>=(piecesRemain(other.board),pieceDensity(other.board), fragilePiece(other.board))
+        return (piecesRemain(self.board),pieceDistance(self.board), fragilePiece(self.board))>=(piecesRemain(other.board),pieceDistance(other.board), fragilePiece(other.board))
 
     def __eq__(self,other):
         if other == -math.inf:
             return False
         elif other == math.inf:
             return False
-        return (piecesRemain(self.board),pieceDensity(self.board), fragilePiece(self.board))==(piecesRemain(other.board),pieceDensity(other.board), fragilePiece(other.board))
+        return (piecesRemain(self.board),pieceDistance(self.board), fragilePiece(self.board))==(piecesRemain(other.board),pieceDistance(other.board), fragilePiece(other.board))
     def __ne__(self,other):
         if other == -math.inf:
             return True
         elif other == math.inf:
             return True
-        return (piecesRemain(self.board),pieceDensity(self.board), fragilePiece(self.board))!=(piecesRemain(other.board),pieceDensity(other.board), fragilePiece(other.board))
+        return (piecesRemain(self.board),pieceDistance(self.board), fragilePiece(self.board))!=(piecesRemain(other.board),pieceDistance(other.board), fragilePiece(other.board))
 
     def __le__(self,other):
         if other == -math.inf:
             return False
         elif other == math.inf:
             return True
-        return (piecesRemain(self.board),pieceDensity(self.board), fragilePiece(self.board))<=(piecesRemain(other.board),pieceDensity(other.board), fragilePiece(other.board))
-
-
+        return (piecesRemain(self.board),pieceDistance(self.board), fragilePiece(self.board))<=(piecesRemain(other.board),pieceDistance(other.board), fragilePiece(other.board))
 
 def piecesRemain(board):
     return board.playerPieces - board.opponentPieces
 
-def pieceDensity(board):
+def pieceDistance(board):
     distance = 0
     pieceNum = 0
     for column in range(len(board.grid)):
