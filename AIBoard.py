@@ -15,22 +15,22 @@ class Board:
         self.opponentPieces = 0
         self.size = INITIALSIZE
         self.grid = boardInit()
-        self.opponent = opponent(color)
-        self.shrinkBoard(numberOfShrink())
+        self.opponent = getOpponent(color)
+        self.shrinkBoard(self.numberOfShrink())
 
 
-    def place(color, position):
+    def place(self,color, position):
         '''
         Used for placing piece.
         Call update, since every time place a piece, you need to check
-        if it can eliminate other pieces. 
+        if it can eliminate other pieces.
         '''
         column = position[1]
         row = position[0]
         self.grid[column][row] = color
         self.update(color)
 
-    def numberOfShrink():
+    def numberOfShrink(self):
         '''
         Given the size of the board, decide the number of shrinking size
         '''
@@ -57,7 +57,7 @@ class Board:
             [shrink,7-shrink]]
 
         for corner in corners:
-            self.gird[corner[1]][corner[0]] = CORNER
+            self.grid[corner[1]][corner[0]] = CORNER
 
     def makeMove(self, color, origin, goal):
         '''
@@ -80,11 +80,11 @@ class Board:
         More on updating
         '''
         self.eliminate(color)
-        opponent = opponent(color)
+        opponent = getOpponent(color)
         self.eliminate(opponent)
         numberOfPlayer, numberOfOpponent = 0,0
         for column in range(len(self.grid)):
-            for row in range(leng(slef.grid[column])):
+            for row in range(len(self.grid[column])):
                 p = self.grid[column][row]
                 if(p == self.player):
                     numberOfPlayer+=1
@@ -93,6 +93,7 @@ class Board:
         self.playerPieces = numberOfPlayer
         self.opponentPieces = numberOfOpponent
 
+
     def eliminate(self,color):
         #Traverse all grid
         for column in range(len(self.grid)):
@@ -100,7 +101,7 @@ class Board:
                 p = self.grid[column][row]
                 #If the color is the opponent color and Possible to
                 # Eliminate, remove it as empty.
-                if p == opponent(color) and self.possibleEliminate((row,column)):
+                if p == getOpponent(color) and self.possibleEliminate((row,column)):
                     self.grid[column][row] = "-"
 
 
@@ -108,7 +109,7 @@ class Board:
         column = positions[1]
         row = positions[0]
         piece = self.grid[column][row]
-        opponent = opponent(piece)
+        opponent = getOpponent(piece)
         '''
         Eliminating phase
         Need to consider pieces that are either on a same vertical axis
@@ -134,7 +135,7 @@ class Board:
             pass
         return False
 
-    def possiblePlacing(color):
+    def possiblePlacing(self,color):
         '''
         Return a list of possible placing phase
         '''
@@ -151,7 +152,7 @@ class Board:
                     places.append((row,column)) #row column 的tuple
         return places
 
-    def possibleMoves(color):
+    def possibleMoves(self,color):
         '''
         Return a list of tuple containing position and possible moves.
 
@@ -165,7 +166,7 @@ class Board:
                         moves.append(((row,column),move))
         return moves
 
-    def fourMoves(position):
+    def fourMoves(self,position):
         '''
         Check possible moves
         Return a list of possible moves
@@ -222,7 +223,7 @@ def boardInit():
         board[index[0]][index[1]] = CORNER
     return board
 
-def opponent(color):
+def getOpponent(color):
     '''
     Oponent color given the color of the player.
     '''
