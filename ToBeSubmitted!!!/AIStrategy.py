@@ -2,13 +2,21 @@ import math
 from copy import deepcopy
 from AIBoard import Board
 from UtilityFunction import Utility
+DEPTH = 5
 
 class Strategy:
+    '''
+    The Strategy class can do MinMax/AlphBeta pruning and select the best action
+    to perform moving phase and placing phase
+    '''
     def __init__(self):
         pass
     def placingPhase(self,board, color):
         '''
-        Placing phase for the player
+        param: board, color
+        function: call MinMax and generate a list of actions. Select the best
+            one and return.
+        return: action(tuple)
         '''
         placingList = []
         for places in board.possiblePlacing(color):
@@ -21,12 +29,12 @@ class Strategy:
         return max(placingList)[1] #Sort the list of possible actions. Return the best one
     def placingMinMax(self,board, color, a, b,depth):
         '''
-        MinMax algorithm used for placing phase.
-        Have the alpha-beta pruning algorithm as well.
-        a: alpha
-        b: beta
+        param:board, color, alpha, beta, depth
+        function: MinMax algorithm used for placing phase.
+            Have the alpha-beta pruning algorithm as well.
+        return: a comparable object value
         '''
-        if depth == 2 or board.playerPieces <= 15:
+        if depth == DEPTH or board.playerPieces <= 10:
             return Utility(board)
 
         if color == board.player:
@@ -54,7 +62,10 @@ class Strategy:
 
     def movingPhase(self,board, color):
         '''
-        Moving phase for the player
+        param: board, color
+        function: call MinMax and generate a list of actions. Select the best
+            one and return.
+        return: action(tuple)
         '''
         movingList = []
         for move in board.possibleMoves(color):
@@ -68,7 +79,13 @@ class Strategy:
         return max(movingList)[1] #Sort based on Utility. Return the best move
 
     def movingMinMax(self,board, color, a,b,depth):
-        if depth == 2 or board.playerPieces <= 15:
+        '''
+        param:board, color, alpha, beta, depth
+        function: MinMax algorithm used for placing phase.
+            Have the alpha-beta pruning algorithm as well.
+        return: a comparable object value
+        '''
+        if depth == 5 or board.playerPieces <= 10:
             return Utility(board)
 
         if color == board.player:
@@ -86,6 +103,7 @@ class Strategy:
         else:
             value = math.inf
             for move in board.possibleMoves(color):
+                #
                 copyOfBoard = deepcopy(board)
                 copyOfBoard.makeMove(color,move[0], move[1])
                 value = min(value,self.placingMinMax(copyOfBoard, board.player, a,b,depth+1))
