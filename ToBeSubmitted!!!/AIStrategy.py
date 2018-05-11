@@ -2,7 +2,8 @@ import math
 from copy import deepcopy
 from AIBoard import Board
 from UtilityFunction import Utility
-DEPTH = 5
+DEPTH = 5 # we have tested different depth to find the most effiecent one that
+          # could get the job done without taking too much time and space
 
 class Strategy:
     '''
@@ -102,7 +103,8 @@ class Strategy:
         else:
             value = math.inf
             for move in board.possibleMoves(color):
-                #
+                # copy board to prevent changing the actual game board while
+                # just checking available move space
                 copyOfBoard = deepcopy(board)
                 copyOfBoard.makeMove(color,move[0], move[1])
                 value = min(value,self.placingMinMax(copyOfBoard, board.player, a,b,depth+1))
