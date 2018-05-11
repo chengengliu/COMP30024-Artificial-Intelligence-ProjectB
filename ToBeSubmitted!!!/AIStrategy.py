@@ -34,7 +34,7 @@ class Strategy:
             Have the alpha-beta pruning algorithm as well.
         return: a comparable object value
         '''
-        if depth == DEPTH or board.playerPieces <= 10:
+        if depth == 2 or board.playerPieces <= 15:
             return Utility(board)
 
         if color == board.player:
@@ -85,7 +85,7 @@ class Strategy:
             Have the alpha-beta pruning algorithm as well.
         return: a comparable object value
         '''
-        if depth == 5 or board.playerPieces <= 10:
+        if depth == 2 or board.playerPieces <= 15:
             return Utility(board)
 
         if color == board.player:

@@ -11,13 +11,14 @@ class Utility:
     '''
     def __init__(self,board):
         self.board = board
-
+    #Less than
     def __lt__(self,other):
         if other == -math.inf:
             return False
         elif other == math.inf:
             return True
         return (piecesRemain(self.board),pieceDistance(self.board), fragilePiece(self.board))<(piecesRemain(other.board),pieceDistance(other.board), fragilePiece(other.board))
+    #Greater than
     def __gt__(self,other):
         if other == -math.inf:
             return True
@@ -25,26 +26,28 @@ class Utility:
             return False
         return (piecesRemain(self.board),pieceDistance(self.board), fragilePiece(self.board))>(piecesRemain(other.board),pieceDistance(other.board), fragilePiece(other.board))
 
+    #Greater or equal
     def __ge__(self,other):
         if other == -math.inf:
             return True
         elif other == math.inf:
             return False
         return (piecesRemain(self.board),pieceDistance(self.board), fragilePiece(self.board))>=(piecesRemain(other.board),pieceDistance(other.board), fragilePiece(other.board))
-
+    #Equal
     def __eq__(self,other):
         if other == -math.inf:
             return False
         elif other == math.inf:
             return False
         return (piecesRemain(self.board),pieceDistance(self.board), fragilePiece(self.board))==(piecesRemain(other.board),pieceDistance(other.board), fragilePiece(other.board))
+    #Not equal
     def __ne__(self,other):
         if other == -math.inf:
             return True
         elif other == math.inf:
             return True
         return (piecesRemain(self.board),pieceDistance(self.board), fragilePiece(self.board))!=(piecesRemain(other.board),pieceDistance(other.board), fragilePiece(other.board))
-
+    #Less or equal
     def __le__(self,other):
         if other == -math.inf:
             return False

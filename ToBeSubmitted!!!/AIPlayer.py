@@ -10,7 +10,9 @@ EMPTY = "-"
 
 class Player:
     def __init__(self, color):
+        '''
 
+        '''
         self.board = Board(color)
         self.strategy = Strategy()
         self.opponent = self.board.opponent
@@ -18,7 +20,17 @@ class Player:
         self.turns = 0
 
     def action(self,turns):
+        '''
+
+        '''
         self.turns+=1
+        if (turns >128 and turns <192):
+            self.board.size = 6
+            self.board.shrinkBoard(self.board.numberOfShrink())
+        elif (turns >= 192):
+            self.board.size = 4
+            self.board.shrinkBoard(self.board.numberOfShrink())
+
         if self.turns <= 24:
             action = self.strategy.placingPhase(self.board, self.player)
             self.board.place(self.player, action)
@@ -28,15 +40,13 @@ class Player:
         '''
         Shrink 还是有点迷糊。 做hardcode test没问题，但是跑别的会有问题
         '''
-        if (turns >128 and turns <192):
-            self.board.size = 6
-            self.board.shrinkBoard(self.board.numberOfShrink())
-        elif (turns >= 192):
-            self.board.size = 4
-            self.board.shrinkBoard(self.board.numberOfShrink())
+
         return action
 
     def update(self, action):
+        '''
+
+        '''
         origin = action[0]
         goal = action[1]
         self.turns+=1

@@ -6,8 +6,9 @@ CORNER = "X"
 EMPTY = "-"
 INITIAL = 8
 class Board:
+    '''
+    '''
     def __init__(self,color):
-        # I treat color as a char symbol
         if color == 'white':
             color = WHITE
         else:
@@ -21,9 +22,9 @@ class Board:
 
     def update(self,color):
         '''
-        More on updating
+
         '''
-        self.eliminate(color)
+        #self.eliminate(color)
         opponent = getOpponent(color)
         self.eliminate(opponent)
         numberOfPlayer, numberOfOpponent = 0,0
@@ -111,6 +112,10 @@ class Board:
         print (self.grid)
 
     def eliminate(self,color):
+        '''
+
+
+        '''
         #Traverse all grid
         for column in range(len(self.grid)):
             for row in range(len(self.grid[column])):
