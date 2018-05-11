@@ -7,6 +7,7 @@ EMPTY = "-"
 INITIAL = 8
 class Board:
     '''
+    initiate board class with necessary attributes
     '''
     def __init__(self,color):
         if color == 'white':
@@ -22,7 +23,9 @@ class Board:
 
     def update(self,color):
         '''
-
+        adding eliminate check function to help with placing and moving phase
+        constantly monitoring on how many chess pieces have left on the board
+        to help with technics
         '''
         self.eliminate(color)
         opponent = getOpponent(color)
