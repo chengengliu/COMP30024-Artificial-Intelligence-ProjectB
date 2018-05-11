@@ -55,14 +55,6 @@ class Utility:
             return True
         return (piecesRemain(self.board),pieceDistance(self.board), fragilePiece(self.board))<=(piecesRemain(other.board),pieceDistance(other.board), fragilePiece(other.board))
 
-def piecesRemain(board):
-    '''
-    param: board
-    function: calculate the difference between player piece and opponent piece
-    return: the difference
-    '''
-    return board.playerPieces - board.opponentPieces
-
 def pieceDistance(board):
     '''
     param: board
@@ -79,11 +71,17 @@ def pieceDistance(board):
             if piece == board.player:
                 pieceNum+=1
                 distance+=math.sqrt((abs(column-CENTER)**2)+(abs(row-CENTER)**2))
-    if pieceNum ==0:
-        return 0
-    else:
-        distance/= pieceNum
-        return -distance
+
+    distance/= pieceNum
+    return -distance
+
+def piecesRemain(board):
+    '''
+    param: board
+    function: calculate the difference between player piece and opponent piece
+    return: the difference
+    '''
+    return board.playerPieces - board.opponentPieces
 
 def fragilePiece(board):
     '''

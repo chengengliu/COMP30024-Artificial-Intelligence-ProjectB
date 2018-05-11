@@ -75,7 +75,6 @@ class Strategy:
             #Remember that move is 2 2D tuple contaning "Origin" and "Goal". Two positions
             copyOfBoard.makeMove(color,move[0], move[1])
             movingList.append((self.movingMinMax(copyOfBoard,board.opponent,-math.inf,math.inf,0),move))
-        print(max(movingList)[1])
         return max(movingList)[1] #Sort based on Utility. Return the best move
 
     def movingMinMax(self,board, color, a,b,depth):
@@ -85,7 +84,7 @@ class Strategy:
             Have the alpha-beta pruning algorithm as well.
         return: a comparable object value
         '''
-        if depth == 2 or board.playerPieces <= 15:
+        if depth == 2 or board.playerPieces <= 5:
             return Utility(board)
 
         if color == board.player:

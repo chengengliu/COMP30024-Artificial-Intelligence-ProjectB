@@ -24,7 +24,7 @@ class Board:
         '''
 
         '''
-        #self.eliminate(color)
+        self.eliminate(color)
         opponent = getOpponent(color)
         self.eliminate(opponent)
         numberOfPlayer, numberOfOpponent = 0,0
@@ -35,6 +35,7 @@ class Board:
                     numberOfPlayer+=1
                 if(p == self.opponent):
                     numberOfOpponent+=1
+
         self.playerPieces = numberOfPlayer
         self.opponentPieces = numberOfOpponent
     def place(self,color, position):
@@ -109,7 +110,6 @@ class Board:
 
         for corner in corners:
             self.grid[corner[1]][corner[0]] = CORNER
-        print (self.grid)
 
     def eliminate(self,color):
         '''
