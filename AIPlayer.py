@@ -25,7 +25,9 @@ class Player:
         else:
             action = self.strategy.movingPhase(self.board, self.player)
             self.board.makeMove(self.player,action[0], action[1])
-
+        '''
+        Shrink 还是有点迷糊。 做hardcode test没问题，但是跑别的会有问题
+        '''
         if (turns >128 and turns <192):
             self.board.size = 6
             self.board.shrinkBoard(self.board.numberOfShrink())

@@ -4,8 +4,7 @@ WHITE = "O"
 BLACK = "@"
 CORNER = "X"
 EMPTY = "-"
-INITIALSIZE = 8
-
+INITIAL = 8
 class Board:
     def __init__(self,color):
         # I treat color as a char symbol
@@ -16,16 +15,15 @@ class Board:
         self.player = color
         self.playerPieces = 0
         self.opponentPieces = 0
-        self.size = INITIALSIZE
+        self.size = INITIAL
         self.grid = boardInit()
         self.opponent = getOpponent(color)
-        #self.shrinkBoard(self.numberOfShrink())
 
     def update(self,color):
         '''
         More on updating
         '''
-        #self.eliminate(color)
+        self.eliminate(color)
         opponent = getOpponent(color)
         self.eliminate(opponent)
         numberOfPlayer, numberOfOpponent = 0,0
@@ -124,15 +122,15 @@ class Board:
                     self.grid[column][row] = "-"
 
     def possibleEliminate(self,positions):
-        column = positions[1]
-        row = positions[0]
-        piece = self.grid[column][row]
-        opponent = getOpponent(piece)
         '''
         Eliminating phase
         Need to consider pieces that are either on a same vertical axis
         or a horizontal axis
         '''
+        column = positions[1]
+        row = positions[0]
+        piece = self.grid[column][row]
+        opponent = getOpponent(piece)
         #Up and down, vertical axis
         try:
             up = self.grid[column][row-1]
@@ -173,8 +171,6 @@ class Board:
         '''
         Check possible moves
         Return a list of possible moves
-        查看上下左右 Try
-        ######################这里有个问题，这个list做出来，move的方向是根据谁来决定的。
         '''
         column = position[1]
         row = position[0]
@@ -234,21 +230,3 @@ def getOpponent(color):
         return BLACK
     else:
         return WHITE
-
-def empty_grid(size):
-    '''
-    A total empty board with all "-"
-    '''
-    grid = [[EMPTY for i in range(size)] for i in range(size)]
-    return grid
-
-def print_board(board):
-    for row in board.grid:
-        string = ""
-        for col in row:
-            if col != "?":
-                string+= col
-            else:
-                string+= " "
-            string+= " "
-        print(string)
