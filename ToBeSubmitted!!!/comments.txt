@@ -1,0 +1,18 @@
+Group Member: Keming Zhang, Chenggeng Liu
+Student Number: 813368, 
+
+1. Struture:
+	four major modules: AIBoard, AIPlayer, AIStrategy, UtilityFunction
+	from these four modules we have the main classes as Player, Board, MinMax Algorithm and its heuristic function
+	we save our own game board in Board class, Player has the Algorithm and desicion to make moves and utility function
+	gives evalutaion of the algorithm
+2. Strategy used in game:
+	main structure is formed with minmax alpha-beta prunning algorithm, to find the best possible move a player could do
+	heuristic function (or utility function) has a score system based on different aspects: the distance with player piece
+	and the chess board center cell, remaining player piece number compare with opponent piece number and the situation a
+	player chess piece currrently in.
+	from these different evaluation points, we tried our best at securing the victory as taking over the center part of the 
+	board as soon as possible while avoid player chess piece being taken out
+	at placing phase our technics is a bit more aggressive as we seek the opportunity to take out opponent piece while we try
+	to take over the center part of the board
+3. 
